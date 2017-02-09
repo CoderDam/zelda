@@ -1,0 +1,83 @@
+.tile {
+	background-image: url('../images/sprite.png');
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+}
+
+/* Bush */
+.bush.no-top.right-bush.bottom-bush.no-left {
+	background-position: 0 0;
+}
+
+.bush:not(.top-bush).right-bush.bottom-bush.left-bush {
+	background-position: -17px 0;
+}
+
+.bush:not(.top-bush):not(.right-bush).bottom-bush.left-bush {
+	background-position: -34px 0;
+}
+
+.bush.top-bush.right-bush.bottom-bush:not(.left-bush) {
+	background-position: 0 -17px;
+}
+
+.bush.top-bush.right-bush.bottom-bush.left-bush {
+	background-position: -17px -17px;
+}
+
+.bush.top-bush:not(.right-bush).bottom-bush.left-bush {
+	background-position: -34px -17px;
+}
+
+.bush.top-bush.right-bush:not(.bottom-bush):not(.left-bush) {
+	background-position: 0 -34px;
+}
+
+.bush.top-bush.right-bush:not(.bottom-bush).left-bush {
+	background-position: -17px -34px;
+}
+
+.bush.top-bush:not(.right-bush):not(.bottom-bush).left-bush {
+	background-position: -34px -34px;
+}
+
+/* Mud */
+.mud {
+	background-position: -85px 0;
+}
+.mud:not(.top-mud).right-mud.bottom-mud:not(.left-mud) {
+	background-position: -119px 0;
+}
+.mud.top-mud.right-mud.bottom-mud:not(.left-mud) {
+	background-position: -119px -17px;
+}
+.mud.top-mud.right-mud:not(.bottom-mud):not(.left-mud) {
+	background-position: -119px -34px;
+}
+.mud:not(.top-mud).right-mud.bottom-mud.left-mud {
+	background-position: -136px 0;
+}
+.mud.top-mud.right-mud:not(.bottom-mud).left-mud {
+	background-position: -136px -34px;
+}
+.mud:not(.top-mud):not(.right-mud).bottom-mud.left-mud {
+	background-position: -153px 0;
+}
+.mud.top-mud:not(.right-mud).bottom-mud.left-mud {
+	background-position: -153px -17px;
+}
+.mud.top-mud:not(.right-mud):not(.bottom-mud).left-mud {
+	background-position: -153px -34px;
+}
+
+/* Soil */
+.soil {
+	background-image: none;
+}
+
+/* Stone */
+.stone {
+	background-position: -51px -34px;
+}

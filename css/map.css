@@ -1,0 +1,9 @@
+#container {
+	margin: 100px 0;
+}
+
+#map {
+	background: #948d4e;
+	position: relative;
+	margin: auto;
+}
