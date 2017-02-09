@@ -10,11 +10,11 @@ var tile = {
 		// création d'une tuile
 		var newTile = document.createElement('div');
 		// attibution des classes
-		newTile.className = newTile.getClasses(posX,posY);
+		newTile.className = tile.getClasses(posX,posY);
 		// attribution du style position
-		newTile.style = newTile.getStyle(posX,posY);
+		newTile.style = tile.getStyle(posX,posY);
 		// envoi de la tuile dans map
-		map.appendChild(tile);
+		map.appendChild(newTile);
   },
 
 
