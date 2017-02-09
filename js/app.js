@@ -18,9 +18,9 @@ var app = {
 
       for (var column = 0; column < map.tiles[line].length; column++) {
         // Préparation de la création de la tuile.
-        //tileCharacter correpond au motif de la tuile: +, $, X
-        var tileCharacter = map.tiles[line][column];
-        tile.create(0,0);
+
+
+        tile.create(column, line);
       }
     }
 
