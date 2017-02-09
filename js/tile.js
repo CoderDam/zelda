@@ -32,9 +32,9 @@ var tile = {
 		// top
 		classes += (posY>0) ? (' top-' + tile.getType(posX,posY-1)) : (' no-top');
 		// right
-		classes += ' right-' + tile.getType(posX+1,posY);
+		classes += (posX+1<map.tiles[posY].length) ? (' right-' + tile.getType(posX+1,posY)) : ('');
 		// bottom
-		classes += ' bottom-' + tile.getType(posX,posY+1);
+		classes += (posY+1<map.tiles.length) ? (' bottom-' + tile.getType(posX,posY+1)) : ('');
 		// left
 		classes += (posX>0) ? (' left-' + tile.getType(posX-1,posY)) : (' no-left');
 		// on retourne la liste des classes
