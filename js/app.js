@@ -12,10 +12,13 @@ var app = {
    * 3. Dans #map, on va venir ajouter en enfant toutes les tuiles .tile.
    */
   createTiles: function() {
+
+    //Parcours de la liste des tuiles pour récupérer chaque tuile.
     for (var line = 0; line < map.tiles.length; line++) {
 
       for (var column = 0; column < map.tiles[line].length; column++) {
-
+        // Préparation de la création de la tuile.
+        //tileCharacter correpond au motif de la tuile: +, $, X
         var tileCharacter = map.tiles[line][column];
         tile.create(0,0);
       }
