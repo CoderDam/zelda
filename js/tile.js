@@ -8,11 +8,11 @@ var tile = {
 		// récupération de la div où créer la tuile
 		var map = document.getElementById('map');
 		// création d'une tuile
-		var tile = document.createElement('div');
+		var newTile = document.createElement('div');
 		// attibution des classes
-		tile.className = this.getClasses(posX,posY);
+		newTile.className = newTile.getClasses(posX,posY);
 		// attribution du style position
-		tile.style = this.getStyle(posX,posY);
+		newTile.style = newTile.getStyle(posX,posY);
 		// envoi de la tuile dans map
 		map.appendChild(tile);
   },
