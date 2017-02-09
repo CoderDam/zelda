@@ -3,7 +3,9 @@
 }
 
 #map {
-	background: #948d4e;
+	background-color: #948d4e;
 	position: relative;
 	margin: auto;
+	width: 640px;
+	height: 465px;
 }
