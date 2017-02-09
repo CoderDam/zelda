@@ -70,7 +70,7 @@ var tile = {
 		// on récupère le symbole dans le tableau map.tiles
 		var tileType = map.tiles[posY].charAt(posX);
 		// on converti le symbole en mot
-		var tileWordType = map.tiles[tileType];
+		var tileWordType = map.types[tileType];
 		// on retourne le nom du type de sol pour la class
 		return tileWordType;
   },
