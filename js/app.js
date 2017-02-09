@@ -4,7 +4,7 @@ var app = {
    * 2. L'élément #map doit aussi recevoir en style des dimensions, en fonction de la longueur de l'objet map (de js/map.js). Chaque tuile est un carré 16 pixels.
    */
   init: function() {
-    
+
   },
 
 
@@ -12,6 +12,14 @@ var app = {
    * 3. Dans #map, on va venir ajouter en enfant toutes les tuiles .tile.
    */
   createTiles: function() {
+    for (var line = 0; line < map.tiles.length; line++) {
+
+      for (var column = 0; column < map.tiles[line].length; column++) {
+
+        var tileCharacter = map.tiles[line][column];
+        tile.create(0,0);
+      }
+    }
 
   },
 }
