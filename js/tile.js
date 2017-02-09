@@ -50,11 +50,11 @@ var tile = {
    */
   getStyle: function(posX, posY) {
 		// on donne l'alignement horizontal
-		var style = 'top:';
+		var style = 'left:';
 		style += (posX*16);
 		style += 'px;';
 		// on donne l'alignement vertical
-		style += 'left:';
+		style += 'top:';
 		style += (posY*16);
 		style += 'px;';
 		return style;
