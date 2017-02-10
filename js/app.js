@@ -4,6 +4,8 @@ var app = {
    * 2. L'élément #map doit aussi recevoir en style des dimensions, en fonction de la longueur de l'objet map (de js/map.js). Chaque tuile est un carré 16 pixels.
    */
   init: function() {
+    // on crée #stats
+    app.createStats();
     // on crée #map
 		app.createMap();
     // on crée les tuiles
@@ -40,6 +42,21 @@ var app = {
 		// on l'envoie dans #container
 		var container = document.getElementById('container');
 		container.appendChild(app.mapDOM);
+	},
+
+	createStats: function() {
+		// on crée #stats
+		app.statsDOM = document.createElement('aside');
+		// on lui ajoute l'id
+		app.statsDOM.id = 'stats';
+		// on la style
+		app.statsDOM.style.height = map.tiles.length*16+'px';
+		app.statsDOM.style.width = 250+'px';
+		// on l'envoie dans #container
+		var container = document.getElementById('container');
+		container.appendChild(app.statsDOM);
+		// on crée les stats
+		stats.create();
 	},
 
 }

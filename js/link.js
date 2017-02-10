@@ -159,11 +159,18 @@ var link = {
 				return true;
 				break;
 			case '$':
+				link.getObject();
 				return true;
 				break;
 			case 'x':
 				var moveRand = Math.random();
-				return (moveRand<.5) ? true : false;
+				if (moveRand<.5) {
+					return true;
+				}
+				else {
+					stats.lives--;
+					console.warn('lives:',stats.lives);
+				}
 				break;
 			default:
 				return false;
@@ -174,11 +181,29 @@ var link = {
 	getGraphicPosition: function(axis,pos) {
 		switch (axis) {
 			case 'x':
-				return pos*16-2.5;
+				return pos*16-4;
 				break;
 			case 'y':
 				return pos*16-6;
 				break;
 		}
 	},
+
+	getObject: function() {
+		// si elle n'existe pas déjà
+		if (!document.getElementById('object-stone')) {
+			// création div
+			app.objectDOM = document.createElement('div');
+			// attribution id
+			app.objectDOM.id = 'object-stone';
+			// attribution classes
+			app.objectDOM.className = 'tile';
+			app.objectDOM.className += ' stone';
+			app.objectDOM.className += ' object';
+			// affiliation à #stats
+			stats.backPack.appendChild(app.objectDOM);
+			// ajout à l'inventaire
+			stats.objects.stone = true;
+		}
+	}
 };

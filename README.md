@@ -1,5 +1,7 @@
 # Zelda : A &lt;Link&gt; to the Past
 
+![WIP](images/newZelda.gif)
+
 ## Objectif
 
 L'objectif de ce challenge est de générer un terrain, à partir

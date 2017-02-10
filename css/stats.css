@@ -1,0 +1,54 @@
+#stats {
+	background: #bcffff;
+	background-image: url('http://img12.deviantart.net/9560/i/2012/233/7/6/zelda_logo_by_vestasam568-d5byw24.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 70%;
+	color: #890006;
+	font-size: 2.5em;
+	float: left;
+	margin: 0 50px;
+	padding: 120px 45px;
+	position: relative;
+}
+
+.stats-title {
+	font-size: .8em;
+	left: -.15em;
+	position: absolute;
+	text-transform: uppercase;
+	top: -1em;
+}
+
+.heart {
+	background-image: url('../images/heart.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 100%;
+	float: left;
+	height: 32px;
+	/*position: absolute;*/
+	width: 32px;
+}
+
+#back-pack {
+	border: 3px dashed #890006;
+	bottom: 45px;
+	height: 73px;
+	left: 45px;
+	/*overflow: hidden;*/
+	position: absolute;
+	width: calc(100% - 90px);
+}
+
+.object {
+
+}
+
+#object-stone {
+	left: 3px;
+	position: absolute;
+	top: 3px;
+	transform: scale(2);
+	transform-origin: top left;
+}

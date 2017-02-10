@@ -1,11 +1,12 @@
 #container {
+	font-family: 'VT323', monospace;
 	margin: 100px 0;
+	overflow: hidden;
 }
 
 #map {
 	background-color: #948d4e;
-	position: relative;
+	float: left;
 	margin: auto;
-	width: 640px;
-	height: 480px;
+	position: relative;
 }
