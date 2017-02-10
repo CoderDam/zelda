@@ -6,6 +6,12 @@ var app = {
   init: function() {
     //On fait appel à la fonction
     app.createTiles();
+		// on récupère #map
+		app.mapDOM = document.getElementById('map');
+    // on crée le personnage
+    app.mapDOM.appendChild(link.create());
+		// on écoute les touches de mvt
+		document.addEventListener('keyup',link.moveHandler);
 
   },
 
