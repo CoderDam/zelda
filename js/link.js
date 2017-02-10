@@ -2,8 +2,8 @@ var link = {
 	/**
 	*	Variables
 	*/
-	posX: (2*16-2.5),
-	posY: (map.tiles.length*16-22),
+	posX: 2,//(posX*16-2.5)
+	posY: map.tiles.length,//(posY*16-22)
   /*
    * 1. Créer un élément DOM
    * 2. Le positioner à map.startPosition
@@ -14,8 +14,8 @@ var link = {
     link.dom.id = 'link';
     link.dom.className = 'front';
 		// on fixe la position initiale
-		link.dom.style.top = link.posY+'px';
-		link.dom.style.left = link.posX+'px';
+		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
 
     return link.dom;
   },
@@ -28,19 +28,17 @@ var link = {
 	moveHandler: function(event) {
 		switch (event.key) {
 			case 'ArrowLeft':
-			link.moveLeft();
-			break;
+				link.moveLeft();
+				break;
 			case 'ArrowRight':
-			link.moveRight();
-			break;
+				link.moveRight();
+				break;
 			case 'ArrowUp':
 				link.moveTop();
 				break;
 			case 'ArrowDown':
 				link.moveBottom();
 				break;
-			default:
-
 		}
 	},
 
@@ -64,26 +62,26 @@ var link = {
    */
   moveLeft: function() {
 		link.dom.className = 'left';
-		link.posX -= 16;
-		link.dom.style.left = link.posX+'px';
+		link.posX--;
+		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
   },
 
   moveRight: function() {
 		link.dom.className = 'right';
-		link.posX += 16;
-		link.dom.style.left = link.posX+'px';
+		link.posX++;
+		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
   },
 
   moveTop: function() {
 		link.dom.className = 'back';
-		link.posY -= 16;
-		link.dom.style.top = link.posY+'px';
+		link.posY--;
+		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
   },
 
   moveBottom: function() {
 		link.dom.className = 'front';
-		link.posY += 16;
-		link.dom.style.top = link.posY+'px';
+		link.posY++;
+		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
   },
 
 
@@ -98,4 +96,15 @@ var link = {
   isMovementAllowed: function(pos) {
 
   },
+
+	getGraphicPosition: function(axis,pos) {
+		switch (axis) {
+			case 'x'||'X':
+				return pos*16-2.5;
+				break;
+			case 'y'||'Y':
+				return pos*16-22;
+				break;
+		}
+	},
 };

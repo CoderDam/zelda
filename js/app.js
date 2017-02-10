@@ -11,7 +11,7 @@ var app = {
     // on crée le personnage
     app.mapDOM.appendChild(link.create());
 		// on écoute les touches de mvt
-		document.addEventListener('keyup',link.moveHandler);
+		document.addEventListener('keydown',link.moveHandler);
 
   },
 
