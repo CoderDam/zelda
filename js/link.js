@@ -2,8 +2,14 @@ var link = {
 	/**
 	*	Variables
 	*/
-	posX: 2,//(posX*16-2.5)
-	posY: map.tiles.length,//(posY*16-22)
+	posX: 2,
+	posY: map.tiles.length-1,
+	allowedMove: {
+		left: false,
+		right: true,
+		top: true,
+		bottom: false,
+	},
   /*
    * 1. Créer un élément DOM
    * 2. Le positioner à map.startPosition
@@ -26,17 +32,23 @@ var link = {
 	* en fonction de la touche qui a été appuyée
 	*/
 	moveHandler: function(event) {
+		// on sépare les 4 déplacement possibles
+		// en fonction de la touche pressée
 		switch (event.key) {
 			case 'ArrowLeft':
+				// on appelle la fonction correspondante
 				link.moveLeft();
 				break;
 			case 'ArrowRight':
+				// on appelle la fonction correspondante
 				link.moveRight();
 				break;
 			case 'ArrowUp':
+				// on appelle la fonction correspondante
 				link.moveTop();
 				break;
 			case 'ArrowDown':
+				// on appelle la fonction correspondante
 				link.moveBottom();
 				break;
 		}
@@ -49,10 +61,27 @@ var link = {
    *
    * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
    */
-  move: function(posX, posY) {
-		// if (isMovementAllowded(posX) || isMovementAllowded(posY)) {
-		//
-		// }
+  move: function(axis, pos) {
+		// si le déplacement est validé
+		if (link.isMovementAllowed(axis,pos)) {
+			// on sépare les 2 type de déplacement possible
+			switch (axis) {
+				// horizontal
+				case 'x'||'X'||'left':
+						// on ajuste la nouvelle position
+						link.posX = pos;
+						// et on applique le changement graphique
+						link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+					break;
+				// vertical
+				case 'y'||'Y'||'top':
+						// on ajuste la nouvelle position
+						link.posY = pos;
+						// et on applique le changement graphique
+						link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
+					break;
+			};
+		}
   },
 
 
@@ -61,27 +90,35 @@ var link = {
    * Utilise move
    */
   moveLeft: function() {
+		// on change la class en fonction de la nouvelle orientation
 		link.dom.className = 'left';
-		link.posX--;
-		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+		// on appelle la fonction en lui passant
+		// la nouvelle position souhaitée
+		link.move('x',link.posX-1);
   },
 
   moveRight: function() {
+		// on change la class en fonction de la nouvelle orientation
 		link.dom.className = 'right';
-		link.posX++;
-		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+		// on appelle la fonction en lui passant
+		// la nouvelle position souhaitée
+		link.move('x',link.posX+1);
   },
 
   moveTop: function() {
+		// on change la class en fonction de la nouvelle orientation
 		link.dom.className = 'back';
-		link.posY--;
-		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
+		// on appelle la fonction en lui passant
+		// la nouvelle position souhaitée
+		link.move('y',link.posY-1);
   },
 
   moveBottom: function() {
+		// on change la class en fonction de la nouvelle orientation
 		link.dom.className = 'front';
-		link.posY++;
-		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
+		// on appelle la fonction en lui passant
+		// la nouvelle position souhaitée
+		link.move('y',link.posY+1);
   },
 
 
@@ -93,17 +130,28 @@ var link = {
    *
    * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
    */
-  isMovementAllowed: function(pos) {
-
+  isMovementAllowed: function(axis,pos) {
+		console.info('x'+link.posX,'y'+link.posY);
+		console.warn(axis,pos);
+		// on sépare les 2 axes de déplacement possible
+		switch (axis) {
+			case 'x'||'X'||'left':
+				return (map.tiles[link.posY].charAt(pos) === (' ' || '$')) ? true : false;
+				break;
+			case 'y'||'Y'||'top':
+				return (map.tiles[pos].charAt(link.posX) === (' ' || '$')) ? true : false;
+				break;
+		}
+		return true;
   },
 
 	getGraphicPosition: function(axis,pos) {
 		switch (axis) {
-			case 'x'||'X':
+			case 'x'||'X'||'left':
 				return pos*16-2.5;
 				break;
-			case 'y'||'Y':
-				return pos*16-22;
+			case 'y'||'Y'||'top':
+				return pos*16-6;
 				break;
 		}
 	},
