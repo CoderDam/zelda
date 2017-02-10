@@ -1,0 +1,22 @@
+#link {
+	background-image: url('../images/sprite.png');
+	background-repeat: no-repeat;
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	transition-property: top, left;
+	transition-timing-function: linear;
+	transition-duration: .15s;
+}
+#link.front {
+	background-position: 0 -52px;
+}
+#link.back {
+	background-position: -22px -52px;
+}
+#link.left {
+	background-position: -44px -52px;
+}
+#link.right {
+	background-position: -66px -52px;
+}
