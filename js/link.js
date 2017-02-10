@@ -132,7 +132,7 @@ var link = {
 		switch (axis) {
 			case 'x':
 				// on vérifie que la position souhaitée est dans le tableau
-				if (pos>0 && pos<map.tiles[link.posY].length) {
+				if (pos>=0 && pos<map.tiles[link.posY].length) {
 					// console.warn(map.tiles[link.posY].charAt(pos));
 
 					// on retourne la réponse en fonction du terrain
@@ -142,7 +142,7 @@ var link = {
 
 			case 'y':
 				// on vérifie que la position souhaitée est dans le tableau
-				if (pos>0 && pos<map.tiles.length) {
+				if (pos>=0 && pos<map.tiles.length) {
 					// console.warn(map.tiles[pos].charAt(link.posX));
 
 					// on retourne la réponse en fonction du terrain
