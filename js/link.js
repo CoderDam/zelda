@@ -4,12 +4,6 @@ var link = {
 	*/
 	posX: 2,
 	posY: map.tiles.length-1,
-	allowedMove: {
-		left: false,
-		right: true,
-		top: true,
-		bottom: false,
-	},
   /*
    * 1. Créer un élément DOM
    * 2. Le positioner à map.startPosition
@@ -67,14 +61,14 @@ var link = {
 			// on sépare les 2 type de déplacement possible
 			switch (axis) {
 				// horizontal
-				case 'x'||'X'||'left':
+				case 'x':
 						// on ajuste la nouvelle position
 						link.posX = pos;
 						// et on applique le changement graphique
 						link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
 					break;
 				// vertical
-				case 'y'||'Y'||'top':
+				case 'y':
 						// on ajuste la nouvelle position
 						link.posY = pos;
 						// et on applique le changement graphique
@@ -131,26 +125,58 @@ var link = {
    * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
    */
   isMovementAllowed: function(axis,pos) {
-		console.info('x'+link.posX,'y'+link.posY);
-		console.warn(axis,pos);
+		// console.info('x'+link.posX,'y'+link.posY);
+		// console.warn(axis,pos);
+
 		// on sépare les 2 axes de déplacement possible
 		switch (axis) {
-			case 'x'||'X'||'left':
-				return (map.tiles[link.posY].charAt(pos) === (' ' || '$')) ? true : false;
+			case 'x':
+				// on vérifie que la position souhaitée est dans le tableau
+				if (pos>0 && pos<map.tiles[link.posY].length) {
+					// console.warn(map.tiles[link.posY].charAt(pos));
+
+					// on retourne la réponse en fonction du terrain
+					return link.movementOptions(map.tiles[link.posY].charAt(pos));
+				}
 				break;
-			case 'y'||'Y'||'top':
-				return (map.tiles[pos].charAt(link.posX) === (' ' || '$')) ? true : false;
+
+			case 'y':
+				// on vérifie que la position souhaitée est dans le tableau
+				if (pos>0 && pos<map.tiles.length) {
+					// console.warn(map.tiles[pos].charAt(link.posX));
+
+					// on retourne la réponse en fonction du terrain
+					return link.movementOptions(map.tiles[pos].charAt(link.posX));
+				}
 				break;
 		}
-		return true;
   },
+
+
+	movementOptions: function(toGo) {
+		switch (toGo) {
+			case ' ':
+				return true;
+				break;
+			case '$':
+				return true;
+				break;
+			case 'x':
+				var moveRand = Math.random();
+				return (moveRand<.5) ? true : false;
+				break;
+			default:
+				return false;
+		}
+	},
+
 
 	getGraphicPosition: function(axis,pos) {
 		switch (axis) {
-			case 'x'||'X'||'left':
+			case 'x':
 				return pos*16-2.5;
 				break;
-			case 'y'||'Y'||'top':
+			case 'y':
 				return pos*16-6;
 				break;
 		}
