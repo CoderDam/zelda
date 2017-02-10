@@ -26,7 +26,22 @@ var link = {
 	* en fonction de la touche qui a été appuyée
 	*/
 	moveHandler: function(event) {
+		switch (event.key) {
+			case 'ArrowLeft':
+			link.moveLeft();
+			break;
+			case 'ArrowRight':
+			link.moveRight();
+			break;
+			case 'ArrowUp':
+				link.moveTop();
+				break;
+			case 'ArrowDown':
+				link.moveBottom();
+				break;
+			default:
 
+		}
 	},
 
 
@@ -37,9 +52,9 @@ var link = {
    * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
    */
   move: function(posX, posY) {
-		if (isMovementAllowded(posX) || isMovementAllowded(posY)) {
-
-		}
+		// if (isMovementAllowded(posX) || isMovementAllowded(posY)) {
+		//
+		// }
   },
 
 
