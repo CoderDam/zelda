@@ -6,7 +6,7 @@ var tile = {
    */
   create: function(posX, posY) {
 		// récupération de la div où créer la tuile
-		var map = document.getElementById('map');
+		var myMap = document.getElementById('map');
 		// création d'une tuile
 		var newTile = document.createElement('div');
 		// attibution des classes
@@ -14,7 +14,7 @@ var tile = {
 		// attribution du style position
 		newTile.style = tile.getStyle(posX,posY);
 		// envoi de la tuile dans map
-		map.appendChild(newTile);
+		myMap.appendChild(newTile);
   },
 
 
