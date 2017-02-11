@@ -159,7 +159,7 @@ var link = {
 				return true;
 				break;
 			case '$':
-				link.getObject();
+				link.getObject('object-'+map.types[toGo]);
 				return true;
 				break;
 			case 'x':
@@ -168,8 +168,7 @@ var link = {
 					return true;
 				}
 				else {
-					stats.lives--;
-					console.warn('lives:',stats.lives);
+					stats.removeLives(1);
 				}
 				break;
 			default:
@@ -189,13 +188,13 @@ var link = {
 		}
 	},
 
-	getObject: function() {
+	getObject: function(objectName) {
 		// si elle n'existe pas déjà
-		if (!document.getElementById('object-stone')) {
+		if (!document.getElementById(objectName)) {
 			// création div
 			app.objectDOM = document.createElement('div');
 			// attribution id
-			app.objectDOM.id = 'object-stone';
+			app.objectDOM.id = objectName;
 			// attribution classes
 			app.objectDOM.className = 'tile';
 			app.objectDOM.className += ' stone';
@@ -204,6 +203,8 @@ var link = {
 			stats.backPack.appendChild(app.objectDOM);
 			// ajout à l'inventaire
 			stats.objects.stone = true;
+			// ajout d'une vie
+			stats.createLives(1);
 		}
 	}
 };

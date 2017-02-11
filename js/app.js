@@ -59,6 +59,29 @@ var app = {
 		stats.create();
 	},
 
+  gameOver: function() {
+    // création écran fin
+    app.gameOverScreen = document.createElement('div');
+    // on lui ajoute d'id
+    app.gameOverScreen.id = 'game-over';
+    // on lui ajoute une class
+    app.gameOverScreen.className = 'screen';
+    // on le style
+    app.gameOverScreen.style.height = map.tiles.length*16+'px';
+    app.gameOverScreen.style.width = map.tiles[0].length*16+'px';
+    // on crée le texte
+    app.gameOverText = document.createElement('span');
+    app.gameOverText.textContent = 'OMG, you\'ve killed link!';
+    // on lui donne la class
+    app.gameOverText.className = 'text';
+    // on l'envoie dans #game-over
+    app.gameOverScreen.appendChild(app.gameOverText);
+    // on l'envoie dans #map
+    app.mapDOM.appendChild(app.gameOverScreen);
+    // on lui ajoute la class visible
+    app.gameOverScreen.className += ' screen--visible';
+  },
+
 }
 
 
