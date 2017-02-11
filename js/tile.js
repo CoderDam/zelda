@@ -32,9 +32,9 @@ var tile = {
 		// top
 		classes += (posY>0) ? (' top-' + tile.getType(posX,posY-1)) : (' no-top');
 		// right
-		classes += (posX+1<map.tiles[posY].length) ? (' right-' + tile.getType(posX+1,posY)) : ('');
+		classes += (posX+1<map.tiles[app.level][posY].length) ? (' right-' + tile.getType(posX+1,posY)) : ('');
 		// bottom
-		classes += (posY+1<map.tiles.length) ? (' bottom-' + tile.getType(posX,posY+1)) : ('');
+		classes += (posY+1<map.tiles[app.level].length) ? (' bottom-' + tile.getType(posX,posY+1)) : ('');
 		// left
 		classes += (posX>0) ? (' left-' + tile.getType(posX-1,posY)) : (' no-left');
 		// on retourne la liste des classes
@@ -68,7 +68,7 @@ var tile = {
    */
   getType: function(posX, posY) {
 		// on récupère le symbole dans le tableau map.tiles
-		var tileType = map.tiles[posY].charAt(posX);
+		var tileType = map.tiles[app.level][posY].charAt(posX);
 		// on converti le symbole en mot
 		var tileWordType = map.types[tileType];
 		// on retourne le nom du type de sol pour la class

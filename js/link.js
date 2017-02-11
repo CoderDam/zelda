@@ -3,7 +3,7 @@ var link = {
 	*	Variables
 	*/
 	posX: 2,
-	posY: map.tiles.length-1,
+	posY: map.tiles[app.level].length-1,
   /*
    * 1. Créer un élément DOM
    * 2. Le positioner à map.startPosition
@@ -141,21 +141,21 @@ var link = {
 		switch (axis) {
 			case 'x':
 				// on vérifie que la position souhaitée est dans le tableau
-				if (pos>=0 && pos<map.tiles[link.posY].length) {
+				if (pos>=0 && pos<map.tiles[app.level][link.posY].length) {
 					// console.warn(map.tiles[link.posY].charAt(pos));
 
 					// on retourne la réponse en fonction du terrain
-					return link.movementOptions(map.tiles[link.posY].charAt(pos));
+					return link.movementOptions(map.tiles[app.level][link.posY].charAt(pos));
 				}
 				break;
 
 			case 'y':
 				// on vérifie que la position souhaitée est dans le tableau
-				if (pos>=0 && pos<map.tiles.length) {
+				if (pos>=0 && pos<map.tiles[app.level].length) {
 					// console.warn(map.tiles[pos].charAt(link.posX));
 
 					// on retourne la réponse en fonction du terrain
-					return link.movementOptions(map.tiles[pos].charAt(link.posX));
+					return link.movementOptions(map.tiles[app.level][pos].charAt(link.posX));
 				}
 				break;
 		}
