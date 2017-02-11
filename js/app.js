@@ -60,6 +60,11 @@ var app = {
 	},
 
   gameOver: function() {
+    link.kill();
+    app.displayGameOver();
+  },
+
+  displayGameOver: function() {
     // création écran fin
     app.gameOverScreen = document.createElement('div');
     // on lui ajoute d'id

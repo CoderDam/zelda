@@ -21,30 +21,39 @@ var link = {
   },
 
 
+	kill: function() {
+		app.mapDOM = document.getElementById('map');
+		app.mapDOM.removeChild(document.getElementById('link'));
+	},
+
+
 	/*
 	* Déclenche les fonctions moveTop, moveRight, moveBottom, moveLeft
 	* en fonction de la touche qui a été appuyée
 	*/
 	moveHandler: function(event) {
-		// on sépare les 4 déplacement possibles
-		// en fonction de la touche pressée
-		switch (event.key) {
-			case 'ArrowLeft':
-				// on appelle la fonction correspondante
-				link.moveLeft();
-				break;
-			case 'ArrowRight':
-				// on appelle la fonction correspondante
-				link.moveRight();
-				break;
-			case 'ArrowUp':
-				// on appelle la fonction correspondante
-				link.moveTop();
-				break;
-			case 'ArrowDown':
-				// on appelle la fonction correspondante
-				link.moveBottom();
-				break;
+		// on vérifie que Link existe
+		if (document.getElementById('link')) {
+			// on sépare les 4 déplacement possibles
+			// en fonction de la touche pressée
+			switch (event.key) {
+				case 'ArrowLeft':
+					// on appelle la fonction correspondante
+					link.moveLeft();
+					break;
+				case 'ArrowRight':
+					// on appelle la fonction correspondante
+					link.moveRight();
+					break;
+				case 'ArrowUp':
+					// on appelle la fonction correspondante
+					link.moveTop();
+					break;
+				case 'ArrowDown':
+					// on appelle la fonction correspondante
+					link.moveBottom();
+					break;
+			}
 		}
 	},
 
