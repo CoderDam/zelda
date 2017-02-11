@@ -1,6 +1,6 @@
 ﻿# Zelda : A &lt;Link&gt; to the Past
 
-![WIP](blob/master/sideFiles/newZelda.gif)
+![WIP](sideFiles/newZelda.gif)
 
 ## Objectif
 
