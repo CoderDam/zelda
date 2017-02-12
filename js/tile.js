@@ -79,4 +79,15 @@ var tile = {
 		// on retourne le nom du type de sol pour la class
 		return tileWordType;
   },
+
+
+  removeTile: function(tileName) {
+    // on récupère la map et la tuile
+    app.mapDOM = document.getElementById('map');
+    tile.toRemove = app.mapDOM.querySelector('.' + tileName);
+    // on la supprime si elle existe
+    if (tile.toRemove) {
+      app.mapDOM.removeChild(tile.toRemove);
+    }
+  },
 };

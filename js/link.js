@@ -171,6 +171,7 @@ var link = {
 				break;
 			case '$':
 				link.getObject(map.types[toGo]);
+				tile.removeTile(map.types[toGo]);
 				return true;
 				break;
 			case 'x':
