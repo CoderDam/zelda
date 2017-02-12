@@ -191,13 +191,7 @@ var link = {
 				return true;
 				break;
 			case '#':
-				if (map.tiles[app.level+1]) {
-					app.level++;
-					app.createGame();
-				}
-				else {
-					app.gameEnd('gameWon');
-				}
+				app.changeLevel();
 				break;
 			case '$':
 				link.getObject(map.types[toGo]);

@@ -4,8 +4,10 @@ var stats = {
 	objects: {
 		stone: false,
 	},
+	times: [],
 
 	create: function() {
+		stats.times = [];
 		stats.createLives(stats.startLives);
 		stats.createBackPack();
 	},

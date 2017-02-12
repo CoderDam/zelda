@@ -11,11 +11,11 @@ var app = {
   screens: {
     gameOver: {
       className: 'game-over',
-      text: 'OMG, you\'ve killed Link!<br />(in the mud, what a shame...)',
+      text: 'OMG, you killed Link!<br />(in the mud, what a shame...)',
     },
     gameWon: {
       className: 'game-won',
-      text:'Congrats, you\'ve succeeded the game!',
+      text:'Congrats, you ended the game!',
     },
   },
 
@@ -120,12 +120,86 @@ var app = {
   },
 
 
+  createTimer: function() {
+    if (app.timer) {
+      clearInterval(app.timer);
+      app.timing.tenth = 0;
+      app.timing.sec = 0;
+      app.timing.min = 0;
+    }
+    app.timerDOM = document.createElement('div');
+    app.timerDOM.id = 'timer';
+    app.timerDOM.textContent = app.displayTimer(app.timing);
+    app.mapDOM.appendChild(app.timerDOM);
+  },
+
+
+  increaseTimer: function() {
+    app.timing.tenth++;
+    if (app.timing.tenth>=10) {
+      app.timing.tenth = 0;
+      app.timing.sec++;
+    }
+    if (app.timing.sec>=60) {
+      app.timing.sec = 0;
+      app.timing.min++;
+    }
+    app.timerDOM.textContent = app.displayTimer(app.timing);
+  },
+
+
+  displayTimer: function(timingArray) {
+    app.timerText = app.convertTwoDigits(timingArray.min);
+    app.timerText += ":" + app.convertTwoDigits(timingArray.sec);
+    app.timerText += "." + timingArray.tenth;
+    return app.timerText;
+  },
+
+
+  convertTwoDigits: function(number) {
+    app.tempNumber = number.toString()
+    if (app.tempNumber.length<2) {
+      app.tempNumber = '0' + number;
+    }
+    return app.tempNumber;
+  },
+
+
+  resetTimer: function() {
+    for (var duration in app.timing) {
+      app.timing[duration] = 0;
+    }
+  },
+
+
+  changeLevel: function() {
+    // on enregistre le timer dans stats
+    stats.times.push(app.displayTimer(app.timing));
+    app.resetTimer();
+    console.log(stats.times);
+    // s'il existe un niveau suivant
+    if (map.tiles[app.level+1]) {
+      // on va au niveau suivant
+      app.level++;
+      app.createGame();
+    }
+    // sinon
+    else {
+      // en envoie l'écran de fin
+      app.gameEnd('gameWon');
+    }
+  },
+
+
   gameEnd: function(endType) {
+    clearInterval(app.timer);
     link.kill();
     stats.removeBackPack();
     app.displayGameEnd(endType);
+    app.displayGameTimes();
     app.startMenu();
   },
+
 
   displayGameEnd: function(endType) {
     app.gameEndScreen = app.displayScreen(endType);
@@ -139,6 +213,7 @@ var app = {
     // on lui ajoute la class visible
     app.gameEndScreen.className += ' screen--visible';
   },
+
 
   displayScreen: function(endType) {
     // création écran
@@ -156,48 +231,18 @@ var app = {
   },
 
 
-  createTimer: function() {
-    if (app.timer) {
-      clearInterval(app.timer);
-      app.timing.tenth = 0;
-      app.timing.sec = 0;
-      app.timing.min = 0;
+  displayGameTimes: function() {
+    app.gameTimesDOM = document.createElement('div');
+    app.gameTimesDOM.id = 'game-times';
+    app.gameTimesDOM.textContent = 'Your times';
+    for (var timers = 0; timers < stats.times.length; timers++) {
+      app.playerTimer = document.createElement('div');
+      app.playerTimer.className = 'timer';
+      app.playerTimer.textContent = 'level ' + timers + ': ' + (stats.times[timers]);
+      app.gameTimesDOM.appendChild(app.playerTimer);
     }
-    app.timerDOM = document.createElement('div');
-    app.timerDOM.id = 'timer';
-    app.displayTimer();
-    app.mapDOM.appendChild(app.timerDOM);
+    app.mapDOM.appendChild(app.gameTimesDOM);
   },
-
-
-  increaseTimer: function() {
-    app.timing.tenth++;
-    if (app.timing.tenth>=10) {
-      app.timing.tenth = 0;
-      app.timing.sec++;
-    }
-    if (app.timing.sec>=60) {
-      app.timing.sec = 0;
-      app.timing.min++;
-    }
-    app.displayTimer();
-  },
-
-
-  displayTimer: function() {
-    app.timerDOM.textContent = app.convertTwoDigits(app.timing.min);
-    app.timerDOM.textContent += ":" + app.convertTwoDigits(app.timing.sec);
-    app.timerDOM.textContent += "." + app.timing.tenth;
-  },
-
-  convertTwoDigits: function(number) {
-    app.tempNumber = number.toString()
-    if (app.tempNumber.length<2) {
-      app.tempNumber = '0' + number;
-    }
-    return app.tempNumber;
-  },
-
 }
 
 
