@@ -3,6 +3,11 @@ var app = {
   level: 0,
   startX: 0,
   startY: 0,
+  timing: {
+    tenth: 0,
+    sec: 0,
+    min: 0,
+  },
   screens: {
     gameOver: {
       className: 'game-over',
@@ -10,7 +15,7 @@ var app = {
     },
     gameWon: {
       className: 'game-won',
-      text:'Congrats, you\'ve won the game!',
+      text:'Congrats, you\'ve succeeded the game!',
     },
   },
 
@@ -72,6 +77,10 @@ var app = {
     // on crée le personnage
     link.create();
     console.info(link.posX,link.posY);
+    // on crée le timer
+    app.createTimer();
+    // on lance le timer
+    app.timer = setInterval(app.increaseTimer,100);
     // on écoute les touches de mvt
     document.addEventListener('keydown',link.moveHandler);
   },
@@ -144,6 +153,49 @@ var app = {
     // on l'envoie dans #map
     app.mapDOM.appendChild(app.gameScreen);
     return app.gameScreen;
+  },
+
+
+  createTimer: function() {
+    if (app.timer) {
+      clearInterval(app.timer);
+      app.timing.tenth = 0;
+      app.timing.sec = 0;
+      app.timing.min = 0;
+    }
+    app.timerDOM = document.createElement('div');
+    app.timerDOM.id = 'timer';
+    app.displayTimer();
+    app.mapDOM.appendChild(app.timerDOM);
+  },
+
+
+  increaseTimer: function() {
+    app.timing.tenth++;
+    if (app.timing.tenth>=10) {
+      app.timing.tenth = 0;
+      app.timing.sec++;
+    }
+    if (app.timing.sec>=60) {
+      app.timing.sec = 0;
+      app.timing.min++;
+    }
+    app.displayTimer();
+  },
+
+
+  displayTimer: function() {
+    app.timerDOM.textContent = app.convertTwoDigits(app.timing.min);
+    app.timerDOM.textContent += ":" + app.convertTwoDigits(app.timing.sec);
+    app.timerDOM.textContent += "." + app.timing.tenth;
+  },
+
+  convertTwoDigits: function(number) {
+    app.tempNumber = number.toString()
+    if (app.tempNumber.length<2) {
+      app.tempNumber = '0' + number;
+    }
+    return app.tempNumber;
   },
 
 }
