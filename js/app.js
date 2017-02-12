@@ -50,6 +50,7 @@ var app = {
 
 
   startGame: function() {
+    app.level=0;
     app.statsDOM.removeChild(app.startButton);
     // on crée les stats
     stats.create();
