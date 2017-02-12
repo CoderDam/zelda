@@ -61,5 +61,9 @@ label, button {
 	box-sizing: border-box;
 }
 input, button {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
 	outline: 0;
+	text-transform: inherit;
 }

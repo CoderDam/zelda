@@ -20,28 +20,41 @@ var app = {
    * 2. L'élément #map doit aussi recevoir en style des dimensions, en fonction de la longueur de l'objet map (de js/map.js). Chaque tuile est un carré 16 pixels.
    */
   init: function() {
-    // on crée #stats
-    app.createStats();
-    // on crée le jeu
-    app.createGame();
-    // on écoute les touches de mvt
-    document.addEventListener('keydown',link.moveHandler);
+    // on crée le panneau de stats
+    app.createStatsPanel();
+    // on crée le menu de démarrage
+    app.startMenu();
   },
 
 
-  createStats: function() {
+  createStatsPanel: function() {
     // on crée #stats
     app.statsDOM = document.createElement('aside');
     // on lui ajoute l'id
     app.statsDOM.id = 'stats';
     // on la style
     app.statsDOM.style.height = map.tiles[app.level].length*16+'px';
-    app.statsDOM.style.width = 250+'px';
     // on l'envoie dans #container
-    var container = document.getElementById('container');
-    container.appendChild(app.statsDOM);
+    app.containerDOM = document.getElementById('container');
+    app.containerDOM.appendChild(app.statsDOM);
+  },
+
+
+  startMenu: function() {
+    app.startButton = document.createElement('button');
+    app.startButton.id = 'start-button';
+    app.startButton.textContent = 'Start';
+    app.statsDOM.appendChild(app.startButton);
+    app.startButton.addEventListener('click',app.startGame);
+  },
+
+
+  startGame: function() {
+    app.statsDOM.removeChild(app.startButton);
     // on crée les stats
     stats.create();
+    // on crée le jeu
+    app.createGame();
   },
 
 
@@ -58,6 +71,8 @@ var app = {
     // on crée le personnage
     link.create();
     console.info(link.posX,link.posY);
+    // on écoute les touches de mvt
+    document.addEventListener('keydown',link.moveHandler);
   },
 
 
@@ -97,7 +112,9 @@ var app = {
 
   gameEnd: function(endType) {
     link.kill();
+    stats.removeBackPack();
     app.displayGameEnd(endType);
+    app.startMenu();
   },
 
   displayGameEnd: function(endType) {

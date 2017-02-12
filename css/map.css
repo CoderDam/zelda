@@ -1,6 +1,11 @@
+body {
+	background: #000;
+}
+
 #container {
 	font-family: 'VT323', monospace;
-	margin: 100px 0;
+	float: left;
+	margin: 100px 100px;
 	overflow: hidden;
 }
 

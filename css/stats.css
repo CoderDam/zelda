@@ -7,9 +7,22 @@
 	color: #890006;
 	font-size: 2.5em;
 	float: left;
-	margin: 0 50px;
 	padding: 120px 45px;
 	position: relative;
+	text-align: center;
+	width: 250px;
+}
+
+#start-button {
+	border: 0;
+	background: #000;
+	margin: 100px auto;
+	padding: .4em .8em;
+	text-transform: uppercase;
+	transition: .2s;
+}
+#start-button:hover {
+	transform: scale(.95);
 }
 
 .stats-title {

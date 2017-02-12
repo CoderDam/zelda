@@ -36,15 +36,32 @@ var stats = {
 		}
 	},
 
-	createBackPack: function() {
-		stats.backPack = document.createElement('div');
-		stats.backPack.id = 'back-pack';
-		app.statsDOM.appendChild(stats.backPack);
 
-		stats.backPackTitle = document.createElement('span');
-		stats.backPackTitle.className = 'stats-title';
-		stats.backPackTitle.textContent = 'Inventory';
-		stats.backPack.appendChild(stats.backPackTitle);
+	createBackPack: function() {
+		// si l'inventaire n'existe pas déjà
+		if (!document.getElementById('back-pack')) {
+			// on le crée
+			stats.backPackDOM = document.createElement('div');
+			// on l'id
+			stats.backPackDOM.id = 'back-pack';
+			// on l'attache à #stats
+			app.statsDOM.appendChild(stats.backPackDOM);
+			// on crée l'élément de texte
+			stats.backPackTitle = document.createElement('span');
+			// on le class
+			stats.backPackTitle.className = 'stats-title';
+			// on lui entre le texte
+			stats.backPackTitle.textContent = 'Inventory';
+			// on attache à l'inventaire
+			stats.backPackDOM.appendChild(stats.backPackTitle);
+		}
+	},
+
+	removeBackPack: function() {
+		// si l'inventaire existe
+		if (document.getElementById('back-pack')) {
+			app.statsDOM.removeChild(stats.backPackDOM);
+		}
 	},
 
 

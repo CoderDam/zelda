@@ -28,6 +28,8 @@ var link = {
 
 
 	kill: function() {
+		// on s'assure que le compteur de vies revienne à 0
+		stats.removeLives(stats.lives);
 		// on récupère la map (au cas où)
 		app.mapDOM = document.getElementById('map');
 		// on supprime le personnage
