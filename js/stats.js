@@ -31,7 +31,7 @@ var stats = {
 				app.statsDOM.removeChild(stats.heart);
 			}
 			else {
-				app.gameOver();
+				app.gameEnd('gameOver');
 			}
 		}
 	},

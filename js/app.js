@@ -3,6 +3,16 @@ var app = {
   level: 0,
   startX: 0,
   startY: 0,
+  screens: {
+    gameOver: {
+      className: 'game-over',
+      text: 'OMG, you\'ve killed link!',
+    },
+    gameWon: {
+      className: 'game-won',
+      text:'Congrats, you\'ve won the game!',
+    },
+  },
 
 
   /*
@@ -84,32 +94,38 @@ var app = {
     }
   },
 
-  gameOver: function() {
+
+  gameEnd: function(endType) {
     link.kill();
-    app.displayGameOver();
+    app.displayGameEnd(endType);
   },
 
-  displayGameOver: function() {
-    // création écran fin
-    app.gameOverScreen = document.createElement('div');
-    // on lui ajoute d'id
-    app.gameOverScreen.id = 'game-over';
-    // on lui ajoute une class
-    app.gameOverScreen.className = 'screen';
-    // on le style
-    app.gameOverScreen.style.height = map.tiles[app.level].length*16+'px';
-    app.gameOverScreen.style.width = map.tiles[app.level][0].length*16+'px';
+  displayGameEnd: function(endType) {
+    app.gameEndScreen = app.displayScreen(endType);
     // on crée le texte
-    app.gameOverText = document.createElement('span');
-    app.gameOverText.textContent = 'OMG, you\'ve killed link!';
+    app.gameEndText = document.createElement('span');
+    app.gameEndText.textContent = app.screens[endType].text;
     // on lui donne la class
-    app.gameOverText.className = 'text';
-    // on l'envoie dans #game-over
-    app.gameOverScreen.appendChild(app.gameOverText);
-    // on l'envoie dans #map
-    app.mapDOM.appendChild(app.gameOverScreen);
+    app.gameEndText.className = 'text';
+    // on l'envoie dans le screen
+    app.gameEndScreen.appendChild(app.gameEndText);
     // on lui ajoute la class visible
-    app.gameOverScreen.className += ' screen--visible';
+    app.gameEndScreen.className += ' screen--visible';
+  },
+
+  displayScreen: function(endType) {
+    // création écran
+    app.gameScreen = document.createElement('div');
+    // on lui ajoute une class
+    app.gameScreen.className = 'screen';
+    // on lui ajoute d'id
+    app.gameScreen.id = app.screens[endType].className;
+    // on le style
+    app.gameScreen.style.height = map.tiles[app.level].length*16+'px';
+    app.gameScreen.style.width = map.tiles[app.level][0].length*16+'px';
+    // on l'envoie dans #map
+    app.mapDOM.appendChild(app.gameScreen);
+    return app.gameScreen;
   },
 
 }

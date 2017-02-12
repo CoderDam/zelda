@@ -194,7 +194,7 @@ var link = {
 					app.createGame();
 				}
 				else {
-					return true;
+					app.gameEnd('gameWon');
 				}
 				break;
 			case '$':

@@ -24,3 +24,11 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+#game-won.screen {
+  background-color: #bcffff;
+  background-image: url('../images/braveLink.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30%;
+}
