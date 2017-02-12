@@ -238,7 +238,7 @@ var app = {
     for (var timers = 0; timers < stats.times.length; timers++) {
       app.playerTimer = document.createElement('div');
       app.playerTimer.className = 'timer';
-      app.playerTimer.textContent = 'level ' + timers + ': ' + (stats.times[timers]);
+      app.playerTimer.textContent = 'level ' + (timers+1) + ': ' + (stats.times[timers]);
       app.gameTimesDOM.appendChild(app.playerTimer);
     }
     app.mapDOM.appendChild(app.gameTimesDOM);

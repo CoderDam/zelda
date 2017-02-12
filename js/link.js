@@ -194,8 +194,10 @@ var link = {
 				app.changeLevel();
 				break;
 			case '$':
-				link.getObject(map.types[toGo]);
-				tile.removeTile(map.types[toGo]);
+				if (stats.objects[map.types[toGo]]===false) {
+					link.getObject(map.types[toGo]);
+					tile.removeTile(map.types[toGo]);
+				}
 				return true;
 				break;
 			case 'x':
@@ -228,7 +230,7 @@ var link = {
 			stats.backPack = document.getElementById('back-pack');
 			stats.backPack.appendChild(app.objectDOM);
 			// ajout à l'inventaire
-			stats.objects.stone = true;
+			stats.objects[objectName] = true;
 			// ajout d'une vie
 			stats.createLives(1);
 		}
