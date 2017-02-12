@@ -1,8 +1,10 @@
 var app = {
 
-  level: 1,
+  level: 0,
   startX: 0,
   startY: 0,
+
+
   /*
    * 1. Dans js/app.js, on va créer un objet app responsable de l'ajout des objets dans le DOM. On va créer un conteneur #map.
    * 2. L'élément #map doit aussi recevoir en style des dimensions, en fonction de la longueur de l'objet map (de js/map.js). Chaque tuile est un carré 16 pixels.
@@ -10,15 +12,62 @@ var app = {
   init: function() {
     // on crée #stats
     app.createStats();
+    // on crée le jeu
+    app.createGame();
+    // on écoute les touches de mvt
+    document.addEventListener('keydown',link.moveHandler);
+  },
+
+
+  createStats: function() {
+    // on crée #stats
+    app.statsDOM = document.createElement('aside');
+    // on lui ajoute l'id
+    app.statsDOM.id = 'stats';
+    // on la style
+    app.statsDOM.style.height = map.tiles[app.level].length*16+'px';
+    app.statsDOM.style.width = 250+'px';
+    // on l'envoie dans #container
+    var container = document.getElementById('container');
+    container.appendChild(app.statsDOM);
+    // on crée les stats
+    stats.create();
+  },
+
+
+  createGame: function() {
+    // s'il y a déjà une map, on la supprime
+    if (document.getElementById('map')) {
+      app.removeMap();
+    }
     // on crée #map
-		app.createMap();
+    app.createMap();
     // on crée les tuiles
     app.createTiles();
+    // console.info(app.startX,app.startY)
     // on crée le personnage
-    app.mapDOM.appendChild(link.create());
-		// on écoute les touches de mvt
-		document.addEventListener('keydown',link.moveHandler);
+    link.create();
+    console.info(link.posX,link.posY);
+  },
 
+
+  createMap: function() {
+    // on crée #map
+    app.mapDOM = document.createElement('div');
+    // on lui ajoute l'id
+    app.mapDOM.id = 'map';
+    // on la style
+    app.mapDOM.style.height = map.tiles[app.level].length*16+'px';
+    app.mapDOM.style.width = map.tiles[app.level][0].length*16+'px';
+    // on l'envoie dans #container
+    var container = document.getElementById('container');
+    container.appendChild(app.mapDOM);
+  },
+
+
+  removeMap: function() {
+    var container = document.getElementById('container');
+    container.removeChild(document.getElementById('map'));
   },
 
 
@@ -34,34 +83,6 @@ var app = {
       }
     }
   },
-
-	createMap: function() {
-		// on crée #map
-		app.mapDOM = document.createElement('div');
-		// on lui ajoute l'id
-		app.mapDOM.id = 'map';
-		// on la style
-		app.mapDOM.style.height = map.tiles[app.level].length*16+'px';
-		app.mapDOM.style.width = map.tiles[app.level][0].length*16+'px';
-		// on l'envoie dans #container
-		var container = document.getElementById('container');
-		container.appendChild(app.mapDOM);
-	},
-
-	createStats: function() {
-		// on crée #stats
-		app.statsDOM = document.createElement('aside');
-		// on lui ajoute l'id
-		app.statsDOM.id = 'stats';
-		// on la style
-		app.statsDOM.style.height = map.tiles[app.level].length*16+'px';
-		app.statsDOM.style.width = 250+'px';
-		// on l'envoie dans #container
-		var container = document.getElementById('container');
-		container.appendChild(app.statsDOM);
-		// on crée les stats
-		stats.create();
-	},
 
   gameOver: function() {
     link.kill();

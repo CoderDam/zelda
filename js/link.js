@@ -10,22 +10,40 @@ var link = {
    * 3. poser les évenements clavier
    */
   create: function() {
+		// on crée la div
     link.dom = document.createElement('div');
+		// on l'id
     link.dom.id = 'link';
+		// on la class
     link.dom.className = 'front';
-		// on fixe la position initiale
+		// on fixe sa position initiale
 		link.posX = app.startX;
 		link.posY = app.startY;
+		// console.log(link.posX,link.posY);
 		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
 		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
-
-    return link.dom;
+		// on l'affiche
+    app.mapDOM.appendChild(link.dom);
   },
 
 
 	kill: function() {
+		// on récupère la map (au cas où)
 		app.mapDOM = document.getElementById('map');
+		// on supprime le personnage
 		app.mapDOM.removeChild(document.getElementById('link'));
+	},
+
+
+	getGraphicPosition: function(axis,pos) {
+		switch (axis) {
+			case 'x':
+			return pos*16-4;
+			break;
+			case 'y':
+			return pos*16-6;
+			break;
+		}
 	},
 
 
@@ -36,6 +54,7 @@ var link = {
 	moveHandler: function(event) {
 		// on vérifie que Link existe
 		if (document.getElementById('link')) {
+			// console.warn(link.posX,link.posY);
 			// on sépare les 4 déplacement possibles
 			// en fonction de la touche pressée
 			switch (event.key) {
@@ -58,36 +77,6 @@ var link = {
 			}
 		}
 	},
-
-
-  /*
-   * Pour faire bouger link
-   * Utilise isMovementAllowed
-   *
-   * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
-   */
-  move: function(axis, pos) {
-		// si le déplacement est validé
-		if (link.isMovementAllowed(axis,pos)) {
-			// on sépare les 2 type de déplacement possible
-			switch (axis) {
-				// horizontal
-				case 'x':
-						// on ajuste la nouvelle position
-						link.posX = pos;
-						// et on applique le changement graphique
-						link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
-					break;
-				// vertical
-				case 'y':
-						// on ajuste la nouvelle position
-						link.posY = pos;
-						// et on applique le changement graphique
-						link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
-					break;
-			};
-		}
-  },
 
 
   /*
@@ -127,13 +116,40 @@ var link = {
   },
 
 
+	/*
+	* Pour faire bouger link
+	* Utilise isMovementAllowed
+	*/
+	move: function(axis, pos) {
+		// si le déplacement est validé
+		if (link.isMovementAllowed(axis,pos)) {
+			// on sépare les 2 type de déplacement possible
+			switch (axis) {
+				// horizontal
+				case 'x':
+				// on ajuste la nouvelle position
+				link.posX = pos;
+				// et on applique le changement graphique
+				link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+				break;
+				// vertical
+				case 'y':
+				// on ajuste la nouvelle position
+				link.posY = pos;
+				// et on applique le changement graphique
+				link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
+				break;
+			};
+			console.log(link.posX,link.posY);
+		}
+	},
+
+
   /*
    * Renvoie true ou false
    * - true si la position est de type 'soil' ou 'stone'
    * - true ou false au hasard, si de type 'mud'
    * - false si de type bush
-   *
-   * https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/switch
    */
   isMovementAllowed: function(axis,pos) {
 		// console.info('x'+link.posX,'y'+link.posY);
@@ -169,6 +185,18 @@ var link = {
 			case ' ':
 				return true;
 				break;
+			case 'o':
+				return true;
+				break;
+			case '#':
+				if (map.tiles[app.level+1]) {
+					app.level++;
+					app.createGame();
+				}
+				else {
+					return true;
+				}
+				break;
 			case '$':
 				link.getObject(map.types[toGo]);
 				tile.removeTile(map.types[toGo]);
@@ -188,17 +216,6 @@ var link = {
 		}
 	},
 
-
-	getGraphicPosition: function(axis,pos) {
-		switch (axis) {
-			case 'x':
-				return pos*16-4;
-				break;
-			case 'y':
-				return pos*16-6;
-				break;
-		}
-	},
 
 	getObject: function(objectName) {
 		// si elle n'existe pas déjà
