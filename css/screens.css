@@ -16,6 +16,7 @@
   left: 10%;
   position: absolute;
   text-transform: uppercase;
+  max-width: 80%;
 }
 
 #game-over.screen {

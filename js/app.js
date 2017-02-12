@@ -6,7 +6,7 @@ var app = {
   screens: {
     gameOver: {
       className: 'game-over',
-      text: 'OMG, you\'ve killed link!',
+      text: 'OMG, you\'ve killed Link!<br />(in the mud, what a shame...)',
     },
     gameWon: {
       className: 'game-won',
@@ -121,7 +121,7 @@ var app = {
     app.gameEndScreen = app.displayScreen(endType);
     // on crée le texte
     app.gameEndText = document.createElement('span');
-    app.gameEndText.textContent = app.screens[endType].text;
+    app.gameEndText.innerHTML = app.screens[endType].text;
     // on lui donne la class
     app.gameEndText.className = 'text';
     // on l'envoie dans le screen
