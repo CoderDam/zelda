@@ -231,6 +231,7 @@ var link = {
 			app.objectDOM.className += ' stone';
 			app.objectDOM.className += ' '+objectName;
 			// affiliation à #stats
+			stats.backPack = document.getElementById('back-pack');
 			stats.backPack.appendChild(app.objectDOM);
 			// ajout à l'inventaire
 			stats.objects.stone = true;
