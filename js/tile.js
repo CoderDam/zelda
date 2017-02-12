@@ -69,6 +69,11 @@ var tile = {
   getType: function(posX, posY) {
 		// on récupère le symbole dans le tableau map.tiles
 		var tileType = map.tiles[app.level][posY].charAt(posX);
+      // si c'est le start point, on le précise dans l'app
+      if (tileType === 'o') {
+        app.startX = posX;
+        app.startY = posY;
+      }
 		// on converti le symbole en mot
 		var tileWordType = map.types[tileType];
 		// on retourne le nom du type de sol pour la class
