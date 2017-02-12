@@ -2,8 +2,8 @@ var link = {
 	/**
 	*	Variables
 	*/
-	posX: 2,
-	posY: map.tiles[app.level].length-1,
+	posX: 0,
+	posY: 0,
   /*
    * 1. Créer un élément DOM
    * 2. Le positioner à map.startPosition
@@ -14,6 +14,8 @@ var link = {
     link.dom.id = 'link';
     link.dom.className = 'front';
 		// on fixe la position initiale
+		link.posX = app.startX;
+		link.posY = app.startY;
 		link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
 		link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
 
@@ -168,7 +170,7 @@ var link = {
 				return true;
 				break;
 			case '$':
-				link.getObject('object-'+map.types[toGo]);
+				link.getObject(map.types[toGo]);
 				return true;
 				break;
 			case 'x':
@@ -199,15 +201,15 @@ var link = {
 
 	getObject: function(objectName) {
 		// si elle n'existe pas déjà
-		if (!document.getElementById(objectName)) {
+		if (!document.getElementById('object-'+objectName)) {
 			// création div
 			app.objectDOM = document.createElement('div');
 			// attribution id
-			app.objectDOM.id = objectName;
+			app.objectDOM.id = 'object-'+objectName;
 			// attribution classes
 			app.objectDOM.className = 'tile';
 			app.objectDOM.className += ' stone';
-			app.objectDOM.className += ' object';
+			app.objectDOM.className += ' '+objectName;
 			// affiliation à #stats
 			stats.backPack.appendChild(app.objectDOM);
 			// ajout à l'inventaire
