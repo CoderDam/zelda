@@ -32,7 +32,7 @@ var stats = {
         stats.lives--;
 
         console.warn('lives:',stats.lives);
-        
+
         stats.$heartDOM = $('.heart').last().remove();
       }
       else {

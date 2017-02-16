@@ -78,7 +78,7 @@ var app = {
     console.info('app.createGame');
 
     // s'il y a déjà une map, on la supprime
-    if ($('#map')) {
+    if ($('#map').length !== 0) {
       app.removeMap();
     }
     // on crée #map
@@ -131,10 +131,7 @@ var app = {
 
   createTimer: function() {
     if (app.timer) {
-      clearInterval(app.timer);
-      app.timing.tenth = 0;
-      app.timing.sec = 0;
-      app.timing.min = 0;
+      app.resetTimer;
     }
     app.$timerDOM = $('<div>')
       .attr({ id: 'timer'})
@@ -175,9 +172,10 @@ var app = {
 
 
   resetTimer: function() {
-    for (var duration in app.timing) {
-      app.timing[duration] = 0;
-    }
+    clearInterval(app.timer);
+    app.timing.tenth = 0;
+    app.timing.sec = 0;
+    app.timing.min = 0;
   },
 
 

@@ -52,7 +52,7 @@ var link = {
   */
   moveHandler: function(event) {
     // on vérifie que Link existe
-    if ($('#link')) {
+    if ($('#link').length !== 0) {
       // console.warn(link.posX,link.posY);
       // on sépare les 4 déplacement possibles
       // en fonction de la touche pressée
