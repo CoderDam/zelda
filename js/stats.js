@@ -16,10 +16,12 @@ var stats = {
     for (var lives = 0; lives < number; lives++) {
       if (stats.lives<30) {
         stats.lives++;
+
         console.warn('lives:',stats.lives);
-        stats.heart = document.createElement('div');
-        stats.heart.className = 'heart';
-        app.statsDOM.appendChild(stats.heart);
+
+        stats.$heartDOM = $('<div>')
+          .addClass('heart')
+          .appendTo(app.$statsDOM);
       }
     }
   },
@@ -28,9 +30,10 @@ var stats = {
     for (var lives = 0; lives < number; lives++) {
       if (stats.lives>0) {
         stats.lives--;
+
         console.warn('lives:',stats.lives);
-        stats.heart = document.querySelector('.heart');
-        app.statsDOM.removeChild(stats.heart);
+        
+        stats.$heartDOM = $('.heart').last().remove();
       }
       else {
         app.gameEnd('gameOver');
@@ -40,29 +43,27 @@ var stats = {
 
 
   createBackPack: function() {
+    console.info('createBackPack');
+
     // si l'inventaire n'existe pas déjà
-    if (!document.getElementById('back-pack')) {
+    if ($('#back-pack').length === 0) {
+      console.log('back-pack n\'existe pas');
       // on le crée
-      stats.backPackDOM = document.createElement('div');
-      // on l'id
-      stats.backPackDOM.id = 'back-pack';
-      // on l'attache à #stats
-      app.statsDOM.appendChild(stats.backPackDOM);
-      // on crée l'élément de texte
-      stats.backPackTitle = document.createElement('span');
-      // on le class
-      stats.backPackTitle.className = 'stats-title';
-      // on lui entre le texte
-      stats.backPackTitle.textContent = 'Inventory';
-      // on attache à l'inventaire
-      stats.backPackDOM.appendChild(stats.backPackTitle);
+      stats.$backPackDOM = $('<div>')
+        .attr({ id: 'back-pack' })
+        .appendTo(app.$statsDOM);
+      // on crée et ajoute son texte
+      stats.$backPackTitle = $('<span>')
+        .addClass('stats-title')
+        .text('Inventory')
+        .appendTo(stats.$backPackDOM);
     }
   },
 
   removeBackPack: function() {
     // si l'inventaire existe
-    if (document.getElementById('back-pack')) {
-      app.statsDOM.removeChild(stats.backPackDOM);
+    if ($('<back-pack>')) {
+      stats.$backPackDOM.remove();
     }
   },
 

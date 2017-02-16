@@ -5,16 +5,11 @@ var tile = {
    chargé de créer une tuile.
    */
   create: function(posX, posY) {
-    // récupération de la div où créer la tuile
-    var myMap = document.getElementById('map');
     // création d'une tuile
-    var newTile = document.createElement('div');
-    // attibution des classes
-    newTile.className = tile.getClasses(posX,posY);
-    // attribution du style position
-    newTile.style = tile.getStyle(posX,posY);
-    // envoi de la tuile dans map
-    myMap.appendChild(newTile);
+    tile.$tile = $('<div>')
+      .attr({ class: tile.getClasses(posX,posY) })
+      .css(tile.getStyle(posX,posY))
+      .appendTo($('#map'));
   },
 
 
@@ -49,15 +44,10 @@ var tile = {
    avec une méthode getStyle.
    */
   getStyle: function(posX, posY) {
-    // on donne l'alignement horizontal
-    var style = 'left:';
-    style += (posX*16);
-    style += 'px;';
-    // on donne l'alignement vertical
-    style += 'top:';
-    style += (posY*16);
-    style += 'px;';
-    return style;
+    return style = {
+      left: (posX*16),
+      top: (posY*16)
+    };
   },
 
 
@@ -82,12 +72,13 @@ var tile = {
 
 
   removeTile: function(tileName) {
+    console.info('removeTile');
+    
     // on récupère la map et la tuile
-    app.mapDOM = document.getElementById('map');
-    tile.toRemove = app.mapDOM.querySelector('.' + tileName);
+    tile.$toRemoveDOM = $('#map .' + tileName);
     // on la supprime si elle existe
-    if (tile.toRemove) {
-      app.mapDOM.removeChild(tile.toRemove);
+    if (tile.$toRemoveDOM.length !== 0) {
+      tile.$toRemoveDOM.remove();
     }
   },
 };

@@ -25,6 +25,8 @@ var app = {
    * 2. L'élément #map doit aussi recevoir en style des dimensions, en fonction de la longueur de l'objet map (de js/map.js). Chaque tuile est un carré 16 pixels.
    */
   init: function() {
+    console.info('app.init');
+
     // on crée le panneau de stats
     app.createStatsPanel();
     // on crée le menu de démarrage
@@ -33,40 +35,50 @@ var app = {
 
 
   createStatsPanel: function() {
-    // on crée #stats
-    app.statsDOM = document.createElement('aside');
-    // on lui ajoute l'id
-    app.statsDOM.id = 'stats';
-    // on la style
-    app.statsDOM.style.height = map.tiles[app.level].length*16+'px';
-    // on l'envoie dans #container
-    app.containerDOM = document.getElementById('container');
-    app.containerDOM.appendChild(app.statsDOM);
+    console.info('app.createStatsPanel');
+
+    // on crée #stats, lui ajoute id et style
+    // et on l'envoie dans #container
+    app.$statsDOM = $('<aside>')
+      .attr({ id: 'stats' })
+      .css({ height: map.tiles[app.level].length*16 })
+      .appendTo($('#container'));
+
+    console.log(app.$statsDOM);
   },
 
 
   startMenu: function() {
-    app.startButton = document.createElement('button');
-    app.startButton.id = 'start-button';
-    app.startButton.textContent = 'Start';
-    app.statsDOM.appendChild(app.startButton);
-    app.startButton.addEventListener('click',app.startGame);
+    console.info('app.startMenu');
+
+    app.$startButtonDOM = $('<button>')
+      .attr({ id: 'start-button' })
+      .text('Start')
+      .appendTo(app.$statsDOM)
+      .on('click',app.startGame);
   },
 
 
   startGame: function() {
+    console.info('app.startGame');
+
     app.level=0;
-    app.statsDOM.removeChild(app.startButton);
+    app.$startButtonDOM.remove();
     // on crée les stats
     stats.create();
     // on crée le jeu
     app.createGame();
+    // on écoute les touches de mvt
+    $(document).off('keydown');
+    $(document).on('keydown',link.moveHandler);
   },
 
 
   createGame: function() {
+    console.info('app.createGame');
+
     // s'il y a déjà une map, on la supprime
-    if (document.getElementById('map')) {
+    if ($('#map')) {
       app.removeMap();
     }
     // on crée #map
@@ -81,28 +93,25 @@ var app = {
     app.createTimer();
     // on lance le timer
     app.timer = setInterval(app.increaseTimer,100);
-    // on écoute les touches de mvt
-    document.addEventListener('keydown',link.moveHandler);
   },
 
 
   createMap: function() {
+    console.info('app.createMap');
+
     // on crée #map
-    app.mapDOM = document.createElement('div');
-    // on lui ajoute l'id
-    app.mapDOM.id = 'map';
-    // on la style
-    app.mapDOM.style.height = map.tiles[app.level].length*16+'px';
-    app.mapDOM.style.width = map.tiles[app.level][0].length*16+'px';
-    // on l'envoie dans #container
-    var container = document.getElementById('container');
-    container.appendChild(app.mapDOM);
+    app.$mapDOM = $('<div>')
+      .attr({ id: 'map' })
+      .css({
+        height: map.tiles[app.level].length*16,
+        width: map.tiles[app.level][0].length*16
+      })
+      .appendTo('#container');
   },
 
 
   removeMap: function() {
-    var container = document.getElementById('container');
-    container.removeChild(document.getElementById('map'));
+    $('#map').remove();
   },
 
 
@@ -127,10 +136,10 @@ var app = {
       app.timing.sec = 0;
       app.timing.min = 0;
     }
-    app.timerDOM = document.createElement('div');
-    app.timerDOM.id = 'timer';
-    app.timerDOM.textContent = app.displayTimer(app.timing);
-    app.mapDOM.appendChild(app.timerDOM);
+    app.$timerDOM = $('<div>')
+      .attr({ id: 'timer'})
+      .text(app.displayTimer(app.timing))
+      .appendTo(app.$mapDOM);
   },
 
 
@@ -144,7 +153,7 @@ var app = {
       app.timing.sec = 0;
       app.timing.min++;
     }
-    app.timerDOM.textContent = app.displayTimer(app.timing);
+    app.$timerDOM.text(app.displayTimer(app.timing));
   },
 
 
@@ -202,46 +211,43 @@ var app = {
 
 
   displayGameEnd: function(endType) {
-    app.gameEndScreen = app.displayScreen(endType);
+    app.$gameEndScreen = app.displayScreen(endType);
     // on crée le texte
-    app.gameEndText = document.createElement('span');
-    app.gameEndText.innerHTML = app.screens[endType].text;
-    // on lui donne la class
-    app.gameEndText.className = 'text';
-    // on l'envoie dans le screen
-    app.gameEndScreen.appendChild(app.gameEndText);
+    app.$gameEndText = $('<span>')
+      .html(app.screens[endType].text)
+      .addClass('text')
+      .appendTo(app.$gameEndScreen);
     // on lui ajoute la class visible
-    app.gameEndScreen.className += ' screen--visible';
+    app.$gameEndScreen.addClass('screen--visible');
   },
 
 
   displayScreen: function(endType) {
     // création écran
-    app.gameScreen = document.createElement('div');
-    // on lui ajoute une class
-    app.gameScreen.className = 'screen';
-    // on lui ajoute d'id
-    app.gameScreen.id = app.screens[endType].className;
-    // on le style
-    app.gameScreen.style.height = map.tiles[app.level].length*16+'px';
-    app.gameScreen.style.width = map.tiles[app.level][0].length*16+'px';
-    // on l'envoie dans #map
-    app.mapDOM.appendChild(app.gameScreen);
-    return app.gameScreen;
+    app.$gameScreen = $('<div>')
+      .addClass('screen')
+      .attr({ id: app.screens[endType].className})
+      .css({
+        height: map.tiles[app.level].length*16,
+        width: map.tiles[app.level][0].length*16
+      })
+      .appendTo(app.$mapDOM);
+    return app.$gameScreen;
   },
 
 
   displayGameTimes: function() {
-    app.gameTimesDOM = document.createElement('div');
-    app.gameTimesDOM.id = 'game-times';
-    app.gameTimesDOM.textContent = 'Your times';
+    app.$gameTimesDOM = $('<div>')
+      .attr({ id: 'game-times' })
+      .text('Your times');
+
     for (var timers = 0; timers < stats.times.length; timers++) {
-      app.playerTimer = document.createElement('div');
-      app.playerTimer.className = 'timer';
-      app.playerTimer.textContent = 'level ' + (timers+1) + ': ' + (stats.times[timers]);
-      app.gameTimesDOM.appendChild(app.playerTimer);
+      app.$playerTimer = $('<div>')
+        .addClass('timer')
+        .text('level ' + (timers+1) + ': ' + (stats.times[timers]))
+        .appendTo(app.$gameTimesDOM);
     }
-    app.mapDOM.appendChild(app.gameTimesDOM);
+    app.$mapDOM.append(app.$gameTimesDOM);
   },
 };
 
@@ -249,4 +255,4 @@ var app = {
 /*
  * Chargement du DOM
  */
-document.addEventListener('DOMContentLoaded', app.init);
+$(app.init);

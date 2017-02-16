@@ -10,30 +10,29 @@ var link = {
    * 3. poser les évenements clavier
    */
   create: function() {
-    // on crée la div
-    link.dom = document.createElement('div');
-    // on l'id
-    link.dom.id = 'link';
-    // on la class
-    link.dom.className = 'front';
     // on fixe sa position initiale
     link.posX = app.startX;
     link.posY = app.startY;
+    // on crée la div
+    link.$DOM = $('<div>')
+      .attr({
+        id: 'link',
+        class: 'front',
+      })
+      .css({
+        left: link.getGraphicPosition('x',link.posX),
+        top: link.getGraphicPosition('y',link.posY),
+      })
+      .appendTo(app.$mapDOM);
     // console.log(link.posX,link.posY);
-    link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
-    link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
-    // on l'affiche
-    app.mapDOM.appendChild(link.dom);
   },
 
 
   kill: function() {
     // on s'assure que le compteur de vies revienne à 0
     stats.removeLives(stats.lives);
-    // on récupère la map (au cas où)
-    app.mapDOM = document.getElementById('map');
     // on supprime le personnage
-    app.mapDOM.removeChild(document.getElementById('link'));
+    $('#link').remove();
   },
 
 
@@ -41,10 +40,8 @@ var link = {
     switch (axis) {
       case 'x':
         return pos*16-4;
-        break;
       case 'y':
         return pos*16-6;
-        break;
     }
   },
 
@@ -55,7 +52,7 @@ var link = {
   */
   moveHandler: function(event) {
     // on vérifie que Link existe
-    if (document.getElementById('link')) {
+    if ($('#link')) {
       // console.warn(link.posX,link.posY);
       // on sépare les 4 déplacement possibles
       // en fonction de la touche pressée
@@ -87,7 +84,7 @@ var link = {
    */
   moveLeft: function() {
     // on change la class en fonction de la nouvelle orientation
-    link.dom.className = 'left';
+    link.$DOM.attr({ class: 'left' });
     // on appelle la fonction en lui passant
     // la nouvelle position souhaitée
     link.move('x',link.posX-1);
@@ -95,7 +92,7 @@ var link = {
 
   moveRight: function() {
     // on change la class en fonction de la nouvelle orientation
-    link.dom.className = 'right';
+    link.$DOM.attr({ class: 'right' });
     // on appelle la fonction en lui passant
     // la nouvelle position souhaitée
     link.move('x',link.posX+1);
@@ -103,7 +100,7 @@ var link = {
 
   moveTop: function() {
     // on change la class en fonction de la nouvelle orientation
-    link.dom.className = 'back';
+    link.$DOM.attr({ class: 'back' });
     // on appelle la fonction en lui passant
     // la nouvelle position souhaitée
     link.move('y',link.posY-1);
@@ -111,7 +108,7 @@ var link = {
 
   moveBottom: function() {
     // on change la class en fonction de la nouvelle orientation
-    link.dom.className = 'front';
+    link.$DOM.attr({ class: 'front' });
     // on appelle la fonction en lui passant
     // la nouvelle position souhaitée
     link.move('y',link.posY+1);
@@ -132,14 +129,14 @@ var link = {
           // on ajuste la nouvelle position
           link.posX = pos;
           // et on applique le changement graphique
-          link.dom.style.left = link.getGraphicPosition('x',link.posX)+'px';
+          link.$DOM.css({ left: link.getGraphicPosition('x',link.posX) });
           break;
         // vertical
         case 'y':
           // on ajuste la nouvelle position
           link.posY = pos;
           // et on applique le changement graphique
-          link.dom.style.top = link.getGraphicPosition('y',link.posY)+'px';
+          link.$DOM.css({ top: link.getGraphicPosition('y',link.posY) });
           break;
       };
       console.log(link.posX,link.posY);
@@ -186,10 +183,8 @@ var link = {
     switch (toGo) {
       case ' ':
         return true;
-        break;
       case 'o':
         return true;
-        break;
       case '#':
         app.changeLevel();
         break;
@@ -199,7 +194,6 @@ var link = {
           tile.removeTile(map.types[toGo]);
         }
         return true;
-        break;
       case 'x':
         var moveRand = Math.random();
         if (moveRand<.5) {
@@ -217,18 +211,12 @@ var link = {
 
   getObject: function(objectName) {
     // si elle n'existe pas déjà
-    if (!document.getElementById('object-'+objectName)) {
+    if ($('#object-'+objectName).length === 0) {
       // création div
-      app.objectDOM = document.createElement('div');
-      // attribution id
-      app.objectDOM.id = 'object-'+objectName;
-      // attribution classes
-      app.objectDOM.className = 'tile';
-      app.objectDOM.className += ' stone';
-      app.objectDOM.className += ' '+objectName;
-      // affiliation à #stats
-      stats.backPack = document.getElementById('back-pack');
-      stats.backPack.appendChild(app.objectDOM);
+      app.$objectDOM = $('<div>')
+        .attr({ id: 'object-' + objectName })
+        .addClass('tile stone ' + objectName)
+        .appendTo($('#back-pack'));
       // ajout à l'inventaire
       stats.objects[objectName] = true;
       // ajout d'une vie
