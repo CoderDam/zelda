@@ -150,14 +150,14 @@ var app = {
 
   displayTimer: function(timingArray) {
     app.timerText = app.convertTwoDigits(timingArray.min);
-    app.timerText += ":" + app.convertTwoDigits(timingArray.sec);
-    app.timerText += "." + timingArray.tenth;
+    app.timerText += ':' + app.convertTwoDigits(timingArray.sec);
+    app.timerText += '.' + timingArray.tenth;
     return app.timerText;
   },
 
 
   convertTwoDigits: function(number) {
-    app.tempNumber = number.toString()
+    app.tempNumber = number.toString();
     if (app.tempNumber.length<2) {
       app.tempNumber = '0' + number;
     }
@@ -243,7 +243,7 @@ var app = {
     }
     app.mapDOM.appendChild(app.gameTimesDOM);
   },
-}
+};
 
 
 /*
