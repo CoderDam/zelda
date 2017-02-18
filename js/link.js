@@ -140,6 +140,14 @@ var link = {
           break;
       };
       console.log(link.posX,link.posY);
+
+      // on vérifie s'il y a un objet sur la case
+      if (tile.isObject(link.posX,link.posY)) {
+        link.getObject(tile.getType(link.posX,link.posY));
+        tile.removeTile(link.posX,link.posY);
+      };
+      // on vérifie
+
     }
   },
 
@@ -183,17 +191,13 @@ var link = {
     switch (toGo) {
       case ' ':
         return true;
+      case '$':
+        return true;
       case 'o':
         return true;
       case '#':
         app.changeLevel();
         break;
-      case '$':
-        if (stats.objects[map.types[toGo]]===false) {
-          link.getObject(map.types[toGo]);
-          tile.removeTile(map.types[toGo]);
-        }
-        return true;
       case 'x':
         var moveRand = Math.random();
         if (moveRand<.5) {
@@ -210,15 +214,22 @@ var link = {
 
 
   getObject: function(objectName) {
-    // si elle n'existe pas déjà
-    if ($('#object-'+objectName).length === 0) {
+    // max 10 objets
+    if (stats.objects.length<10) {
+      // position dans l'inventaire
+      var objectX = (2+((stats.objects.length%5)*30));
+      var objectY = 3+(Math.floor(stats.objects.length/5)*35);
       // création div
       app.$objectDOM = $('<div>')
         .attr({ id: 'object-' + objectName })
-        .addClass('tile stone ' + objectName)
+        .addClass('tile object ' + objectName)
+        .css({
+          left: objectX,
+          top: objectY,
+        })
         .appendTo($('#back-pack'));
       // ajout à l'inventaire
-      stats.objects[objectName] = true;
+      stats.objects.push(objectName);
       // ajout d'une vie
       stats.createLives(1);
     }

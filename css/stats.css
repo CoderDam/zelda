@@ -47,7 +47,7 @@
 #back-pack {
 	border: 3px dashed #890006;
 	bottom: 45px;
-	height: 73px;
+	height: 78px;
 	left: 45px;
 	/*overflow: hidden;*/
 	position: absolute;
@@ -55,13 +55,10 @@
 }
 
 .object {
-
+  position: absolute;
 }
 
 #object-stone {
-	left: 3px;
-	position: absolute;
-	top: 3px;
-	transform: scale(2);
-	transform-origin: top left;
+  transform: scale(2);
+  transform-origin: top left;
 }

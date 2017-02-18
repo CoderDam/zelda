@@ -71,14 +71,25 @@ var tile = {
   },
 
 
-  removeTile: function(tileName) {
-    console.info('removeTile');
-    
-    // on récupère la map et la tuile
-    tile.$toRemoveDOM = $('#map .' + tileName);
-    // on la supprime si elle existe
-    if (tile.$toRemoveDOM.length !== 0) {
-      tile.$toRemoveDOM.remove();
+  isObject: function(posX, posY) {
+    if (tile.getType(posX,posY) === 'stone') {
+      return true;
     }
+    return false;
   },
+
+
+  removeTile: function(posX,posY) {
+    // console.info('removeTile');
+
+    // on récupère la tuile
+    // tile.$toRemoveDOM = $('#map .tile').css({
+    //   left: 16*posX,
+    //   top: 16*posY,
+    // });
+    // console.info(tile.$toRemoveDOM);
+    // tile.$toRemoveDOM.remove();
+  },
+
+
 };

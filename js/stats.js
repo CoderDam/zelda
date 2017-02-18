@@ -1,9 +1,7 @@
 var stats = {
   startLives: 5,
   lives: 0,
-  objects: {
-    stone: false,
-  },
+  objects: [],
   times: [],
 
   create: function() {
@@ -62,7 +60,8 @@ var stats = {
 
   removeBackPack: function() {
     // si l'inventaire existe
-    if ($('<back-pack>')) {
+    if ($('#back-pack').lenght !== 0) {
+      stats.objects = [];
       stats.$backPackDOM.remove();
     }
   },
