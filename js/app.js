@@ -215,8 +215,6 @@ var app = {
       .html(app.screens[endType].text)
       .addClass('text')
       .appendTo(app.$gameEndScreen);
-    // on lui ajoute la class visible
-    app.$gameEndScreen.addClass('screen--visible');
   },
 
 

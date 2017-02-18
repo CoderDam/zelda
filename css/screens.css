@@ -2,12 +2,15 @@
   left: 0;
   position: absolute;
   top: -480px;
-  transition: .4s ease-in;
+  /*transition: .4s ease-in;*/
+  animation: .5s both fall
+}
+@keyframes fall {
+  100% {
+    top: 0;
+  }
 }
 
-.screen--visible {
-  top: 0;
-}
 
 .screen .text {
   bottom: 10%;
