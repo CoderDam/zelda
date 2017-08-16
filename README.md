@@ -1,4 +1,6 @@
-﻿# Zelda : A &lt;Link&gt; to the Past
+﻿online here: www.garnes.one/zelda
+ 
+ # Zelda : A &lt;Link&gt; to the Past
 
 ![WIP](sideFiles/ZeldaWiP4.gif)
 
